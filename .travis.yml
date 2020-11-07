@@ -9,7 +9,7 @@ cache:
     - "$HOME/.m2"
 env:
   global:
-    - DOCKER_IMAGE=recepti-service/recepti-service:0.0.1-SNAPSHOT
+    - DOCKER_IMAGE=rso/recepti-service:0.0.1-SNAPSHOT
 before_install:
   - chmod +x mvnw
 script:
