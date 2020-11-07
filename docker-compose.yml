@@ -1,0 +1,16 @@
+version: '3'
+services:
+  mysql-recepti:
+    container_name: mysql-recepti
+    image: mysql:latest
+    environment:
+      - MYSQL_DATABASE=recepti_db
+      - MYSQL_ROOT_PASSWORD=123456
+    ports:
+    - "3306:3306"
+  recepti-service:
+    image: recepti-service
+    ports:
+    - "8081:8081"
+    depends_on:
+      - mysql-recepti
