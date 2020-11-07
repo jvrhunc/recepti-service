@@ -2,6 +2,6 @@ language: java
 jdk:
   - openjdk15
 script:
-  - ./mvnw clean install
+  - ./mvnw clean install -DskipTests
 before_install:
   - chmod +x mvnw
