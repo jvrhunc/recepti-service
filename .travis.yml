@@ -16,7 +16,7 @@ before_install:
 script:
   - docker build -t "$DOCKER_IMAGE":"$IMAGE_TAG" -t "$DOCKER_IMAGE":latest .
   - docker images
-  - docker tag "$DOCKER_IMAGE" $DOCKER_USERNAME/"$DOCKER_IMAGE"
+  - docker tag "$DOCKER_IMAGE":"$IMAGE_TAG" $DOCKER_USERNAME/"$DOCKER_IMAGE":"$IMAGE_TAG"
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push "$DOCKER_USERNAME"/"$DOCKER_IMAGE":"$IMAGE_TAG"
