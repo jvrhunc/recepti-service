@@ -10,8 +10,9 @@ cache:
 env:
   global:
     - DOCKER_IMAGE=recepti-service/recepti-service:0.0.1-SNAPSHOT
+before_install:
+  - chmod +x mvnw
 script:
-  - chmod +x mvnw &&
   - mvn clean package -U -DskipTests
   - docker build -t "$DOCKER_IMAGE" .
 after_success:
