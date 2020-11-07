@@ -41,7 +41,6 @@ public class ReceptiResource {
             sestavina.setCreated(LocalDate.now());
             sestavina.setRecept(recept);
         }
-
         recept.setCreated(LocalDate.now());
         return receptiRepository.save(recept);
     }
