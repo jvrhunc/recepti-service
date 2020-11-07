@@ -9,13 +9,15 @@ cache:
     - "$HOME/.m2"
 env:
   global:
-    - DOCKER_IMAGE=recepti-service:0.0.1-SNAPSHOT-$TRAVIS_JOB_NUMBER
+    - DOCKER_IMAGE=recepti-service
+    - IMAGE_TAG=0.0.1-SNAPSHOT-$TRAVIS_JOB_NUMBER
 before_install:
   - chmod +x mvnw
 script:
-  - docker build -t "$DOCKER_IMAGE" .
+  - docker build -t "$DOCKER_IMAGE":"$IMAGE_TAG" -t "$DOCKER_IMAGE":latest .
   - docker images
   - docker tag "$DOCKER_IMAGE" $DOCKER_USERNAME/"$DOCKER_IMAGE"
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push "$DOCKER_USERNAME"/"$DOCKER_IMAGE"
+  - docker push "$DOCKER_USERNAME"/"$DOCKER_IMAGE":"$IMAGE_TAG"
+  - docker push "$DOCKER_USERNAME"/"$DOCKER_IMAGE":latest
