@@ -13,8 +13,7 @@ env:
 before_install:
   - chmod +x mvnw
 script:
-  - mvn clean package -U -DskipTests
   - docker build -t "$DOCKER_IMAGE" .
 after_success:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login docker.io -u "$DOCKER_USERNAME" --password-stdin
   - docker push "$DOCKER_IMAGE"
