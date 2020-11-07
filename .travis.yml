@@ -9,11 +9,13 @@ cache:
     - "$HOME/.m2"
 env:
   global:
-    - DOCKER_IMAGE=rso/recepti-service:0.0.1-SNAPSHOT
+    - DOCKER_REPOSITORY=rso/recepti-service:0.0.1-SNAPSHOT
+    - IMAGE_NAME=recepti-service
+    - IMAGE_TAG=0.0.1-SNAPSHOT
 before_install:
   - chmod +x mvnw
 script:
-  - docker build -t "$DOCKER_USERNAME"/"$DOCKER_IMAGE" .
+  - docker build -t "$DOCKER_USERNAME"/"$DOCKER_REPOSITORY"/"$IMAGE_NAME":"$IMAGE_TAG" .
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login docker.io -u "$DOCKER_USERNAME" --password-stdin
-  - docker push "$DOCKER_USERNAME"/"$DOCKER_IMAGE"
+  - docker push "$DOCKER_USERNAME"/"$DOCKER_REPOSITORY"/"$IMAGE_NAME":"$IMAGE_TAG"
