@@ -9,13 +9,10 @@
 
 - Nato lahko aplikacijo zaženemo z zagonom Recepti Application ali z ukazom ```mvn clean package -DskipTests && java -jar target/recepti-service.jar ```
 
-### Dockerfile in docker-compose.yml
+### Dockerfile
 
 - Dockerfile iz zbrane kode zgradi jar datoteko in jo shrani v ```target/recepti-service.jar```
     - zaženemo ga z ukazom ```docker build - -t <ime_slike>```
-- docker-compose.yml vsebuje kodo za povezovanje docker slike aplikacije in docker slike podatkovne baze MySQL
-    - zaženemo ga z ukazom ```docker-compose up```
-    - ko je zagnan imamo na portu 8081 delujočo aplikacijo
 
 ### CI / CD
 
@@ -27,3 +24,7 @@ Status Travic CI-ja : [![Build Status](https://travis-ci.com/jvrhunc/recepti-ser
     - avtomatsko poženejo ukazi iz datoteke ```.travis.yml```
     - ukazi zgradijo projekt (```Dockerfile```) in naredijo novo sliko z unikatnim tag-om
     - sliko pushajo na Docker Hub
+    
+Najnovejšo sliko pri sebi pridobimo z ukazom : ```docker pull jvrhunc/recepti-service:latest```
+
+Za zagon aplikacije je potrebno imeti pognano podatkovno bazo ```mysql-recepti``` na 3306 in pognati ukaz : ```docker run -p 8081:8081 --name recepti-service --link mysql-recepti -d jvrhunc/recepti-service```
