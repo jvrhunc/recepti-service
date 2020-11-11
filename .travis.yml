@@ -15,7 +15,6 @@ before_install:
   - chmod +x mvnw
 script:
   - docker build -t "$DOCKER_IMAGE":"$IMAGE_TAG" -t "$DOCKER_IMAGE":latest .
-  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH
   - docker tag "$DOCKER_IMAGE":"$IMAGE_TAG" $DOCKER_USERNAME/"$DOCKER_IMAGE":"$IMAGE_TAG"
   - docker tag "$DOCKER_IMAGE":"$IMAGE_TAG" $DOCKER_USERNAME/"$DOCKER_IMAGE":latest
 after_success:
