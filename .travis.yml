@@ -1,6 +1,7 @@
 sudo: required
 services:
   - docker
+  - mysql
 language: java
 jdk:
   - openjdk15
@@ -13,6 +14,7 @@ env:
     - IMAGE_TAG=0.0.1-SNAPSHOT-$TRAVIS_JOB_NUMBER
 before_install:
   - chmod +x mvnw
+  - mvn clean install
 script:
   - docker build -t "$DOCKER_IMAGE":"$IMAGE_TAG" -t "$DOCKER_IMAGE":latest .
   - docker images
