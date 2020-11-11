@@ -9,13 +9,10 @@
 
 - Nato lahko aplikacijo zaženemo z zagonom Recepti Application ali z ukazom ```mvn clean package -DskipTests && java -jar target/recepti-service.jar ```
 
-### Dockerfile in docker-compose.yml
+### Dockerfile
 
 - Dockerfile iz zbrane kode zgradi jar datoteko in jo shrani v ```target/recepti-service.jar```
     - zaženemo ga z ukazom ```docker build - -t <ime_slike>```
-- docker-compose.yml vsebuje kodo za povezovanje docker slike aplikacije in docker slike podatkovne baze MySQL
-    - zaženemo ga z ukazom ```docker-compose up```
-    - ko je zagnan imamo na portu 8081 delujočo aplikacijo
 
 ### CI / CD
 
