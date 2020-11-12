@@ -1,6 +1,7 @@
 package si.fri.rso.recepti.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 import si.fri.rso.recepti.models.Sestavina;
 import si.fri.rso.recepti.repositories.SestavineRepository;
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/sestavine")
+@RefreshScope
 public class SestavineResource {
 
     @Autowired

@@ -1,24 +1,28 @@
 package si.fri.rso.recepti.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 import si.fri.rso.recepti.models.Recept;
 import si.fri.rso.recepti.models.Sestavina;
 import si.fri.rso.recepti.models.enums.Tip;
 import si.fri.rso.recepti.repositories.ReceptiRepository;
-import si.fri.rso.recepti.repositories.SestavineRepository;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/recepti")
+@RefreshScope
 public class ReceptiResource {
 
     @Autowired
     private ReceptiRepository receptiRepository;
+
+    @Value("${my.greeting:test}")
+    private String greeting;
 
     @GetMapping
     public List<Recept> getRecepti(@RequestParam(required = false, name = "tip") Tip tip) {
@@ -65,6 +69,10 @@ public class ReceptiResource {
             recept.setReceptId(receptId);
             return receptiRepository.save(recept);
         });
+    }
 
+    @GetMapping("/greeting")
+    public String getGreeting() {
+        return greeting;
     }
 }
