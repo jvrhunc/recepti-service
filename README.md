@@ -1,11 +1,16 @@
 ﻿# Recepti-service
  
+ ### Konfiguracija
+ 
+ Konfiguracija projekta se nahaja v https://github.com/jvrhunc/config-repo in sicer:
+ - ```recepti-service-local``` (konfiguracija za lokalno okolje)
+ - ```recepti-service-dev``` (konfiguracija za razvojno okolje)
+ - ```recepti-service-prod``` (konfiguracija za produkcijsko okolje)
+ 
  ### Lokalno testiranje
  
 - Pognati je potrebno podatkovno bazo (SQL) na portu 3306:
 ``` docker run --name mysql-recepti -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_DATABASE=recepti_db -p 3306:3306 -d mysql:latest ```
-
-- V application.properties je potrebno polje ```spring.datasource.urls``` spremeniti v: ```jdbc:mysql://localhost:3306/recepti_db?allowPublicKeyRetrieval=true&useSSL=false```
 
 - Nato lahko aplikacijo zaženemo z zagonom Recepti Application ali z ukazom ```mvn clean package -DskipTests && java -jar target/recepti-service.jar ```
 
@@ -28,3 +33,5 @@ Status Travic CI-ja : [![Build Status](https://travis-ci.com/jvrhunc/recepti-ser
 Najnovejšo sliko pri sebi pridobimo z ukazom : ```docker pull jvrhunc/recepti-service:latest```
 
 Za zagon aplikacije je potrebno imeti pognano podatkovno bazo ```mysql-recepti``` na 3306 in pognati ukaz : ```docker run -p 8081:8081 --name recepti-service --link mysql-recepti -d jvrhunc/recepti-service```
+
+Aplikacija je nato dostopna na: ```localhost:8081```
