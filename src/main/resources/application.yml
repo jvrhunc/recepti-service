@@ -8,6 +8,16 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
+      profile: ${spring.profiles.active}
+  datasource:
+    username: root
+    password: 123456
+    platform: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 management:
   endpoints:
     web:
