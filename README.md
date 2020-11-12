@@ -10,7 +10,7 @@
  ### Lokalno testiranje
  
 - Pognati je potrebno podatkovno bazo (SQL) na portu 3306:
-``` docker run --name mysql-recepti -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_DATABASE=recepti_db -p 3306:3306 -d mysql:latest ```
+``` docker run --name mysql-recepti --network recepti-network -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_DATABASE=recepti_db -p 3306:3306 -d mysql:latest ```
 
 - Nato lahko aplikacijo zaženemo z zagonom Recepti Application ali z ukazom ```mvn clean package -DskipTests && java -jar target/recepti-service.jar ```
 
