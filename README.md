@@ -16,7 +16,7 @@
 
 ### Dockerfile
 
-- Dockerfile iz zbrane kode zgradi jar datoteko in jo shrani v ```target/recepti-service.jar```
+- Dockerfile iz zbrane kode zgradi jar datoteko in jo shrani v ```target/recepti-service.jar```, nato zgradi sliko kot docker image.
     - zaženemo ga z ukazom ```docker build - -t <ime_slike>```
 
 ### CI / CD
@@ -28,10 +28,10 @@ Status Travic CI-ja : [![Build Status](https://travis-ci.com/jvrhunc/recepti-ser
 - Ko karkoli pushamo v repozitorij recepti-service se:
     - avtomatsko poženejo ukazi iz datoteke ```.travis.yml```
     - ukazi zgradijo projekt (```Dockerfile```) in naredijo novo sliko z unikatnim tag-om
-    - sliko pushajo na Docker Hub
+    - sliko pushajo na Docker Hub (repozitorij: ```jvrhunc/recepti-service```)
     
 Najnovejšo sliko pri sebi pridobimo z ukazom : ```docker pull jvrhunc/recepti-service:latest```
 
-Za zagon aplikacije je potrebno imeti pognano podatkovno bazo ```mysql-recepti``` na 3306 in pognati ukaz : ```docker run -p 8081:8081 --name recepti-service --link mysql-recepti -d jvrhunc/recepti-service```
+Za zagon aplikacije je potrebno imeti pognano podatkovno bazo ```mysql-recepti``` na ```3306``` v networku ```recepeti-network``` in pognati ukaz : ```docker run -p 8081:8081 --name recepti-service --net recepti-network -d jvrhunc/recepti-service```
 
 Aplikacija je nato dostopna na: ```localhost:8081```
