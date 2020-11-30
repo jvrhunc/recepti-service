@@ -20,17 +20,17 @@ spring:
     hibernate:
       ddl-auto: create-drop
 
-  cloud:
-    consul:
-      host: localhost
-      port: 8500
-      discovery:
-        health-check-url: http://localhost:8081/check/health
-        health-check-interval: 10s
-      config:
-        watch:
-          enabled: true
-        enabled: true
+#  cloud:
+#    consul:
+#      host: localhost
+#      port: 8500
+#      discovery:
+#        health-check-url: http://localhost:8081/check/health
+#        health-check-interval: 10s
+#      config:
+#        watch:
+#          enabled: true
+#        enabled: true
 
 management:
   endpoints:
