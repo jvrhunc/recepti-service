@@ -1,7 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/recepti_db?allowPublicKeyRetrieval=true&useSSL=false
-  jpa:
-    hibernate:
-      # Hibernate ddl auto (create, create-drop, validate, update)
-      ddl-auto: create-drop
