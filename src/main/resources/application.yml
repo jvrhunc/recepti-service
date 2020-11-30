@@ -1,10 +1,25 @@
 server:
   port: 8081
+
 spring:
   application:
     name: recepti-service
+
   profiles:
     active: dev
+
+  datasource:
+    url: ${db_url}
+    username: ${db_username}
+    password: ${db_password}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+
   cloud:
     consul:
       host: localhost
@@ -13,10 +28,20 @@ spring:
         health-check-url: http://localhost:8081/check/health
         health-check-interval: 10s
       config:
+        watch:
+          enabled: true
         enabled: true
+
 management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: '*'
       base-path: /check
+
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      cache:
+        time-to-live: 10s

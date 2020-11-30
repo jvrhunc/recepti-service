@@ -12,5 +12,4 @@ public class ReceptiServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ReceptiServiceApplication.class, args);
 	}
-
 }
