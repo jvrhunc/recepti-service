@@ -27,12 +27,10 @@ spring:
       discovery:
         health-check-url: http://localhost:8081/check/health
         health-check-interval: 10s
-        fail-fast: false
       config:
         watch:
           enabled: true
         enabled: true
-        fail-fast: false
 
 management:
   endpoints:

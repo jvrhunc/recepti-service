@@ -13,7 +13,7 @@ spec:
         app: recepti-service
     spec:
       containers:
-        - image: jvrhunc/recepti-service:latest
+        - image: jvrhunc/recepti-service:0.0.1-SNAPSHOT-47.1
           name: recepti-service
           env:
             - name: db_url
