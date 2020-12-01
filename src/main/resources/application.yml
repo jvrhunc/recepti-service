@@ -22,7 +22,7 @@ spring:
 
   cloud:
     consul:
-      host: localhost
+      host: consul-consul-server
       port: 8500
       discovery:
         health-check-url: http://localhost:8081/check/health
