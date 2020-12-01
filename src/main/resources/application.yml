@@ -22,10 +22,8 @@ spring:
 
   cloud:
     consul:
-      host: consul-consul-server
-      port: 8500
       discovery:
-        health-check-url: http://localhost:8081/check/health
+        health-check-path: /check/health
         health-check-interval: 10s
       config:
         watch:
