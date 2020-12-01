@@ -5,5 +5,7 @@ spring:
       port: 80
       config:
         fail-fast: false
+        prefer-ip-address: true
       discovery:
         fail-fast: false
+        prefer-ip-address: true
