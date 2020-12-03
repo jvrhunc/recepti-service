@@ -8,7 +8,7 @@ import java.util.List;
 public class Mejnik {
 
     private List<String> clani;
-    private List<String> opis_projekta;
+    private String opis_projekta;
     private List<String> mikrostoritve;
     private List<String> github;
     private List<String> travis;
@@ -25,11 +25,11 @@ public class Mejnik {
         this.clani = clani;
     }
 
-    public List<String> getOpis_projekta() {
+    public String getOpis_projekta() {
         return opis_projekta;
     }
 
-    public void setOpis_projekta(List<String> opis_projekta) {
+    public void setOpis_projekta(String opis_projekta) {
         this.opis_projekta = opis_projekta;
     }
 

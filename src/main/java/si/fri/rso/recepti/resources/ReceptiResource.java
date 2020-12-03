@@ -174,7 +174,6 @@ public class ReceptiResource {
         Mejnik mejnik = new Mejnik();
 
         ArrayList<String> clanis = new ArrayList();
-        ArrayList<String> opiss = new ArrayList();
         ArrayList<String> mss = new ArrayList();
         ArrayList<String> githubs = new ArrayList();
         ArrayList<String> traviss = new ArrayList();
@@ -187,8 +186,7 @@ public class ReceptiResource {
         String opis = "Moj projekt implementira aplikacijo, kjer bo lahko uporabnik objavljal svoje kuharske recepte in si ogledoval kuharske recepte drugih uporabnikov." +
                 " Vsakemu kuharskemu receptu lahko dodamo tudi neomejeno stevilo sestavin. Pravtako bo lahko ob vsakem receptu objavljeno poljubno stevilo slik. " +
                 "(Storitev slike-service imam pravtako skoraj dokončano, a še ni dostopna na javnem ip-ju).";
-        opiss.add(opis);
-        mejnik.setOpis_projekta(opiss);
+        mejnik.setOpis_projekta(opis);
 
         String ms = "http://104.199.24.115:8081/v1/recepti";
         mss.add(ms);
