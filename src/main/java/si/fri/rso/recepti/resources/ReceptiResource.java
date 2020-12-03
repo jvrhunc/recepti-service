@@ -1,5 +1,6 @@
 package si.fri.rso.recepti.resources;
 
+import io.micrometer.core.annotation.Timed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,12 @@ public class ReceptiResource {
     @Autowired
     private SestavineRepository sestavineRepository;
 
+    @Timed(
+            value = "Recepti.getAll",
+            histogram = true,
+            percentiles = {0.95, 0.99},
+            extraTags = {"version", "v1"}
+    )
     @GetMapping
     public List<Recept> getRecepti(@RequestParam(required = false, name = "tip") Tip tip) {
         if (tip == null) {
@@ -33,11 +40,23 @@ public class ReceptiResource {
         }
     }
 
+    @Timed(
+            value = "Recepti.getById",
+            histogram = true,
+            percentiles = {0.95, 0.99},
+            extraTags = {"version", "v1"}
+    )
     @GetMapping("/{receptId}")
     public Optional<Recept> getReceptById(@PathVariable("receptId") Integer receptId) {
         return receptiRepository.findById(receptId);
     }
 
+    @Timed(
+            value = "Recepti.save",
+            histogram = true,
+            percentiles = {0.95, 0.99},
+            extraTags = {"version", "v1"}
+    )
     @PostMapping("/add")
     public Recept addRecept(@RequestBody Recept recept) {
 
@@ -49,11 +68,23 @@ public class ReceptiResource {
         return receptiRepository.save(recept);
     }
 
+    @Timed(
+            value = "Recepti.delete",
+            histogram = true,
+            percentiles = {0.95, 0.99},
+            extraTags = {"version", "v1"}
+    )
     @DeleteMapping("/delete/{receptId}")
     public void deleteRecept(@PathVariable("receptId") Integer receptId) {
         receptiRepository.deleteById(receptId);
     }
 
+    @Timed(
+            value = "Recepti.update",
+            histogram = true,
+            percentiles = {0.95, 0.99},
+            extraTags = {"version", "v1"}
+    )
     @PutMapping("/update/{receptId}")
     public Recept updateRecept(@RequestBody Recept recept, @PathVariable("receptId") Integer receptId) {
         Optional<Recept> receptToUpdate = receptiRepository.findById(receptId);
@@ -71,12 +102,24 @@ public class ReceptiResource {
         });
     }
 
+    @Timed(
+            value = "Recept.getSestavineByRecept",
+            histogram = true,
+            percentiles = {0.95, 0.99},
+            extraTags = {"version", "v1"}
+    )
     @GetMapping("/{receptId}/sestavine")
     public List<Sestavina> getSestavineByRecept(@PathVariable("receptId") Integer receptId) {
         Optional<Recept> recept = receptiRepository.findById(receptId);
         return recept.map(value -> sestavineRepository.getByRecept(value)).orElse(null);
     }
 
+    @Timed(
+            value = "Recepti.saveSestavina",
+            histogram = true,
+            percentiles = {0.95, 0.99},
+            extraTags = {"version", "v1"}
+    )
     @PostMapping("/{receptId}/sestavine/add")
     public Sestavina addSestavina(@PathVariable("receptId") Integer receptId, @RequestBody Sestavina sestavina) {
         Optional<Recept> recept = receptiRepository.findById(receptId);
@@ -89,11 +132,23 @@ public class ReceptiResource {
         }
     }
 
+    @Timed(
+            value = "Recepti.deleteSestavina",
+            histogram = true,
+            percentiles = {0.95, 0.99},
+            extraTags = {"version", "v1"}
+    )
     @DeleteMapping("/delete/sestavine/{sestavinaId}")
     public void deleteSestavina(@PathVariable("sestavinaId") Integer sestavinaId) {
         sestavineRepository.deleteById(sestavinaId);
     }
 
+    @Timed(
+            value = "Recepti.updateSestavina",
+            histogram = true,
+            percentiles = {0.95, 0.99},
+            extraTags = {"version", "v1"}
+    )
     @PutMapping("/update/sestavine/{sestavinaId}")
     public Sestavina updateSestavina(@RequestBody Sestavina sestavina, @PathVariable("sestavinaId") Integer sestavinaId) {
 
