@@ -7,10 +7,12 @@ import org.springframework.web.bind.annotation.*;
 import si.fri.rso.recepti.models.Recept;
 import si.fri.rso.recepti.models.Sestavina;
 import si.fri.rso.recepti.models.enums.Tip;
+import si.fri.rso.recepti.models.mejnik.Mejnik;
 import si.fri.rso.recepti.repositories.ReceptiRepository;
 import si.fri.rso.recepti.repositories.SestavineRepository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -165,5 +167,46 @@ public class ReceptiResource {
             sestavina.setCreated(LocalDate.now());
             return sestavineRepository.save(sestavina);
         });
+    }
+
+    @GetMapping("/mejnik")
+    public Mejnik getMejnik1() {
+        Mejnik mejnik = new Mejnik();
+
+        ArrayList<String> clanis = new ArrayList();
+        ArrayList<String> opiss = new ArrayList();
+        ArrayList<String> mss = new ArrayList();
+        ArrayList<String> githubs = new ArrayList();
+        ArrayList<String> traviss = new ArrayList();
+        ArrayList<String> dockerhubs = new ArrayList();
+
+        String clan = "jv4739";
+        clanis.add(clan);
+        mejnik.setClani(clanis);
+
+        String opis = "Moj projekt implementira aplikacijo, kjer bo lahko uporabnik objavljal svoje kuharske recepte in si ogledoval kuharske recepte drugih uporabnikov." +
+                " Vsakemu kuharskemu receptu lahko dodamo tudi neomejeno stevilo sestavin. Pravtako bo lahko ob vsakem receptu objavljeno poljubno stevilo slik. " +
+                "(Storitev slike-service imam pravtako skoraj dokončano, a še ni dostopna na javnem ip-ju).";
+        opiss.add(opis);
+        mejnik.setOpis_projekta(opiss);
+
+        String ms = "http://35.187.90.87:8081/v1/recepti";
+        mss.add(ms);
+        mejnik.setMikrostoritve(mss);
+
+        String github = "https://github.com/jvrhunc/recepti-service";
+        githubs.add(github);
+        mejnik.setGithub(githubs);
+
+        String travis = "https://travis-ci.com/github/jvrhunc/recepti-service";
+        traviss.add(travis);
+        mejnik.setTravis(traviss);
+
+        String dockerhub = "https://hub.docker.com/repository/docker/jvrhunc/recepti-service";
+        dockerhubs.add(dockerhub);
+        mejnik.setDockerhub(dockerhubs);
+
+        return mejnik;
+
     }
 }
