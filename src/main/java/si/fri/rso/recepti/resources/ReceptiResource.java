@@ -1,7 +1,6 @@
 package si.fri.rso.recepti.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 import si.fri.rso.recepti.models.Recept;
@@ -24,9 +23,6 @@ public class ReceptiResource {
 
     @Autowired
     private SestavineRepository sestavineRepository;
-
-    @Value("${my.greeting:test}")
-    private String greeting;
 
     @GetMapping
     public List<Recept> getRecepti(@RequestParam(required = false, name = "tip") Tip tip) {
@@ -114,10 +110,5 @@ public class ReceptiResource {
             sestavina.setCreated(LocalDate.now());
             return sestavineRepository.save(sestavina);
         });
-    }
-
-    @GetMapping("/greeting")
-    public String getGreeting() {
-        return greeting;
     }
 }

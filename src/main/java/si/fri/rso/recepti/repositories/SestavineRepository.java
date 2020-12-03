@@ -7,6 +7,5 @@ import si.fri.rso.recepti.models.Sestavina;
 import java.util.List;
 
 public interface SestavineRepository extends JpaRepository<Sestavina, Integer> {
-
     List<Sestavina> getByRecept(Recept recept);
 }
