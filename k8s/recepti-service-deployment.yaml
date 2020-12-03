@@ -12,9 +12,11 @@ spec:
       labels:
         app: recepti-service
     spec:
+      terminationGracePeriodSeconds: 30
       containers:
         - image: jvrhunc/recepti-service:latest
           name: recepti-service
+          imagePullPolicy: "Always"
           env:
             - name: db_url
               value: jdbc:postgresql://rogue.db.elephantsql.com:5432/aatrsktx

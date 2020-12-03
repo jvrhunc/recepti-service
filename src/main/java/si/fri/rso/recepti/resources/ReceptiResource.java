@@ -190,7 +190,7 @@ public class ReceptiResource {
         opiss.add(opis);
         mejnik.setOpis_projekta(opiss);
 
-        String ms = "http://35.187.90.87:8081/v1/recepti";
+        String ms = "http://104.199.24.115:8081/v1/recepti";
         mss.add(ms);
         mejnik.setMikrostoritve(mss);
 
