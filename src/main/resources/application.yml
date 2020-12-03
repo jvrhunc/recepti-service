@@ -2,8 +2,6 @@ server:
   port: 8081
 
 spring:
-  main:
-    allow-bean-definition-overriding: true
   application:
     name: recepti-service
 
@@ -32,6 +30,9 @@ spring:
         watch:
           enabled: true
         enabled: true
+
+  main:
+    allow-bean-definition-overriding: true
 
 management:
   endpoints:
