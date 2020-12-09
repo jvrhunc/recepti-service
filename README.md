@@ -1,11 +1,7 @@
 ﻿# Recepti-service
  
  ### Konfiguracija
- 
- Konfiguracija projekta se nahaja v https://github.com/jvrhunc/config-repo in sicer:
- - ```recepti-service-local``` (konfiguracija za lokalno okolje)
- - ```recepti-service-dev``` (konfiguracija za razvojno okolje)
- - ```recepti-service-prod``` (konfiguracija za produkcijsko okolje)
+
  
  ### Lokalno testiranje
  
@@ -32,6 +28,10 @@ Status Travic CI-ja : [![Build Status](https://travis-ci.com/jvrhunc/recepti-ser
     
 Najnovejšo sliko pri sebi pridobimo z ukazom : ```docker pull jvrhunc/recepti-service:latest```
 
-Za zagon aplikacije je potrebno imeti pognano podatkovno bazo ```mysql-recepti``` na ```3306``` v networku ```recepeti-network``` in pognati ukaz : ```docker run -p 8081:8081 --name recepti-service --net recepti-network -d jvrhunc/recepti-service```
+Za zagon aplikacije je potrebno imeti pognano podatkovno bazo ```recepti-db``` na ```5432``` v networku ```rso-project``` in pognati ukaz : ```docker run -p 8081:8081 --name recepti-service --net rso-project -d jvrhunc/recepti-service```
 
 Aplikacija je nato dostopna na: ```localhost:8081```
+
+### Health in Metrics
+
+### Kubernetes
