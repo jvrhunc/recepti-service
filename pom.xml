@@ -62,8 +62,8 @@
 		<dependency>
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
-			<version>1.6.1</version>
 		</dependency>
+
 
 		<!-- Legacy (metrics) -->
 		<dependency>

@@ -1,8 +1,8 @@
 spring:
   cloud:
     consul:
-      host: http://35.241.240.159
-      port: 80
+      host: localhost
+      port: 8500
       config:
         fail-fast: false
       discovery:

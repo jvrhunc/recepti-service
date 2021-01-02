@@ -6,7 +6,7 @@ spring:
     name: recepti-service
 
   profiles:
-    active: prod
+    active: dev
 
   datasource:
     url: ${db_url}
