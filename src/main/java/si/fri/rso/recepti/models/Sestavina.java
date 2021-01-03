@@ -12,24 +12,19 @@ public class Sestavina {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sestavina_id")
     private Integer sestavinaId;
 
-    @Column(name = "ime")
     private String ime;
 
-    @Column(name = "kolicina")
     private Integer kolicina;
 
-    @Column(name = "enota_kolicine")
     private String enotaKolicine;
 
-    @Column(name = "created")
     @JsonFormat(pattern="dd-MM-yyyy", timezone="Europe/Ljubljana")
     private LocalDate created;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "recept_fk")
     private Recept recept;
 

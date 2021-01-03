@@ -13,27 +13,22 @@ public class Recept {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "recept_id")
     private Integer receptId;
 
-    @Column(name = "ime")
     private String ime;
 
-    @Column(name = "opis")
     private String opis;
 
-    @Column(name = "uporabnik_id")
     private Integer uporabnikId;
 
-    @Column(name = "created")
     @JsonFormat(pattern="dd-MM-yyyy", timezone="Europe/Ljubljana")
     private LocalDate created;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tip", length = 4)
+    @Column(length = 4)
     private Tip tip;
 
-    @OneToMany(mappedBy = "recept", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recept", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Sestavina> sestavine;
 
     public Recept() {

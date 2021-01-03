@@ -1,0 +1,28 @@
+type Query {
+    findAllRecepts: [Recept]
+    findReceptById(id: ID): Recept
+    findReceptByUser(user: Int): [Recept]
+}
+
+type Recept {
+    receptId: ID!
+    ime: String
+    opis: String
+    tip: Tip
+    uporabnikId: Int!
+    sestavine: [Sestavina]
+}
+
+type Sestavina {
+    sestavinaId: ID!
+    ime: String
+    kolicina: Int
+    enotaKolicine: String
+    recept: Recept
+}
+
+enum Tip {
+    PRED
+    GLAV
+    SLAD
+}

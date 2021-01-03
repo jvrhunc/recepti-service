@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface ReceptiRepository extends JpaRepository<Recept, Integer> {
     List<Recept> findByTip(Tip tip);
+    List<Recept> findByUporabnikId(Integer uporabnikId);
 }
