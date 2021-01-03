@@ -82,7 +82,7 @@ public class ReceptiResource {
 
         Boolean uspesno = receptiService.deleteRecept(receptId);
         if (uspesno) {
-            return ResponseEntity.status(HttpStatus.OK).body(null);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Recept with id: " + receptId + "deleted!");
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error in deleting Recept by Id: " + receptId);
@@ -163,7 +163,7 @@ public class ReceptiResource {
 
         Boolean uspesno = receptiService.deleteSestavina(sestavinaId);
         if (uspesno) {
-            return ResponseEntity.status(HttpStatus.OK).body(null);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Sestavina with id: " + sestavinaId + "deleted!");
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error in deleting Sestavina by Id: " + sestavinaId);
