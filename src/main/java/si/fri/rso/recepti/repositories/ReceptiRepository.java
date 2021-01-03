@@ -7,6 +7,5 @@ import si.fri.rso.recepti.models.enums.Tip;
 import java.util.List;
 
 public interface ReceptiRepository extends JpaRepository<Recept, Integer> {
-
     List<Recept> findByTip(Tip tip);
 }
