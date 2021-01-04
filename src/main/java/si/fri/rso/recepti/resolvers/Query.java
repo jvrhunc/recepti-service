@@ -1,4 +1,4 @@
-package si.fri.rso.recepti;
+package si.fri.rso.recepti.resolvers;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import si.fri.rso.recepti.models.Recept;

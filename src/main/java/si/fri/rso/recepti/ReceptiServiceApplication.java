@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import si.fri.rso.recepti.repositories.ReceptiRepository;
 import si.fri.rso.recepti.repositories.SestavineRepository;
+import si.fri.rso.recepti.resolvers.Query;
 
 @SpringBootApplication
 @EnableJpaRepositories("si.fri.rso.recepti.repositories")
