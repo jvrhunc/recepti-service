@@ -25,7 +25,7 @@ spec:
             - name: db_password
               valueFrom:
                 secretKeyRef:
-                  name: password-secret
+                  name: password-secret-recepti
                   key: db_password
           ports:
             - containerPort: 8081
