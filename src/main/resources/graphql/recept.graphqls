@@ -1,0 +1,8 @@
+type Recept {
+    receptId: ID!
+    ime: String
+    opis: String
+    tip: Tip
+    uporabnikId: Int!
+    sestavine: [Sestavina]
+}

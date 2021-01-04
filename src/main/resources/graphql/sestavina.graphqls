@@ -1,0 +1,7 @@
+type Sestavina {
+    sestavinaId: ID!
+    ime: String
+    kolicina: Int
+    enotaKolicine: String
+    recept: Recept
+}

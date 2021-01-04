@@ -1,0 +1,5 @@
+type Query {
+    findAllRecepts: [Recept]
+    findReceptById(id: ID): Recept
+    findReceptByUser(user: Int): [Recept]
+}
