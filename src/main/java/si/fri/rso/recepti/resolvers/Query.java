@@ -1,7 +1,7 @@
 package si.fri.rso.recepti.resolvers;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-import si.fri.rso.recepti.models.Recept;
+import si.fri.rso.recepti.models.entities.Recept;
 import si.fri.rso.recepti.repositories.ReceptiRepository;
 import si.fri.rso.recepti.repositories.SestavineRepository;
 

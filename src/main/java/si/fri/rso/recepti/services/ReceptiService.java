@@ -2,15 +2,19 @@ package si.fri.rso.recepti.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import si.fri.rso.recepti.models.Recept;
-import si.fri.rso.recepti.models.Sestavina;
-import si.fri.rso.recepti.models.enums.Tip;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
+import si.fri.rso.recepti.models.entities.Recept;
+import si.fri.rso.recepti.models.entities.Sestavina;
+import si.fri.rso.recepti.models.view.ReceptItem;
+import si.fri.rso.recepti.models.view.Slika;
 import si.fri.rso.recepti.repositories.ReceptiRepository;
 import si.fri.rso.recepti.repositories.SestavineRepository;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ReceptiService {
@@ -21,18 +25,34 @@ public class ReceptiService {
     @Autowired
     private SestavineRepository sestavineRepository;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     /**
      * Get all Recepti
      *
-     * @param tip Tip of recept
      * @return List of all recepts
      */
-    public List<Recept> getRecepti(Tip tip) {
-        if (tip == null) {
-            return receptiRepository.findAll();
-        } else {
-            return receptiRepository.findByTip(tip);
-        }
+    public List<ReceptItem> getRecepti() {
+
+        // Pridobimo vse recepte
+        List<Recept> receptList = receptiRepository.findAll();
+
+        return receptList.stream().map(recept -> {
+
+            // Za vsak recept poiscemo sliko
+            Slika slika;
+            try {
+                slika = restTemplate.getForObject("http://slike-service/v1/slike/recept/" + recept.getReceptId(),
+                        Slika.class);
+            } catch (final HttpClientErrorException e) {
+                slika = null;
+            }
+
+            // TODO Za vsak recept poiscemo komentarje
+
+            return new ReceptItem(recept, slika, null);
+        }).collect(Collectors.toList());
     }
 
     /**
@@ -41,8 +61,32 @@ public class ReceptiService {
      * @param receptId Id recepta
      * @return Recept by Id
      */
-    public Recept getReceptById(Integer receptId) {
-        return receptiRepository.findById(receptId).orElse(null);
+    public ReceptItem getReceptById(Integer receptId) {
+
+        // Poiscemo recept by Id (Dobimo Recept in Sestavine)
+        Optional<Recept> receptOptional = receptiRepository.findById(receptId);
+
+        if (receptOptional.isPresent()) {
+            ReceptItem result = new ReceptItem();
+
+            Recept recept = receptOptional.get();
+            result.setRecept(recept);
+
+            // Za recept poiscemo Sliko (v slike service)
+            Slika slika;
+            try {
+                slika = restTemplate.getForObject("http://slike-service/v1/slike/recept/" + recept.getReceptId(), Slika.class);
+            } catch (final HttpClientErrorException e) {
+                slika = null;
+            }
+            result.setSlika(slika);
+
+            // TODO Za recept poiscemo Komentarje (v komentarji service)
+
+            return result;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -52,7 +96,6 @@ public class ReceptiService {
      * @return Saved recept
      */
     public Recept addRecept(Recept recept) {
-
         for (Sestavina sestavina : recept.getSestavine()) {
             sestavina.setCreated(LocalDate.now());
             sestavina.setRecept(recept);
@@ -67,6 +110,8 @@ public class ReceptiService {
      * @param receptId Id of Recept
      */
     public Boolean deleteRecept(Integer receptId) {
+        // TODO Izbrisemo sliko
+        // TODO Izbrisemo komentarje
         receptiRepository.deleteById(receptId);
         return true;
     }
@@ -79,6 +124,7 @@ public class ReceptiService {
      * @return Updated Recept
      */
     public Recept updateRecept(Recept recept, Integer receptId) {
+
         Optional<Recept> receptToUpdate = receptiRepository.findById(receptId);
 
         return receptToUpdate.map(r -> {

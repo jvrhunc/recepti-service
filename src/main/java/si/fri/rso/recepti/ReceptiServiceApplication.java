@@ -3,8 +3,10 @@ package si.fri.rso.recepti;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.web.client.RestTemplate;
 import si.fri.rso.recepti.repositories.ReceptiRepository;
 import si.fri.rso.recepti.repositories.SestavineRepository;
 import si.fri.rso.recepti.resolvers.Query;
@@ -20,5 +22,11 @@ public class ReceptiServiceApplication {
 	@Bean
 	public Query query(ReceptiRepository receptiRepository, SestavineRepository sestavineRepository) {
 		return new Query(receptiRepository, sestavineRepository);
+	}
+
+	@Bean
+	@LoadBalanced
+	public RestTemplate getRestTemplate() {
+		return new RestTemplate();
 	}
 }

@@ -6,9 +6,9 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import si.fri.rso.recepti.models.Recept;
-import si.fri.rso.recepti.models.Sestavina;
-import si.fri.rso.recepti.models.enums.Tip;
+import si.fri.rso.recepti.models.entities.Recept;
+import si.fri.rso.recepti.models.entities.Sestavina;
+import si.fri.rso.recepti.models.view.ReceptItem;
 import si.fri.rso.recepti.services.ReceptiService;
 
 import java.util.List;
@@ -28,8 +28,8 @@ public class ReceptiResource {
             extraTags = {"version", "v1"}
     )
     @GetMapping
-    public ResponseEntity<Object> getRecepti(@RequestParam(required = false, name = "tip") Tip tip) {
-        return ResponseEntity.status(HttpStatus.OK).body(receptiService.getRecepti(tip));
+    public ResponseEntity<Object> getRecepti() {
+        return ResponseEntity.status(HttpStatus.OK).body(receptiService.getRecepti());
     }
 
     @Timed(
@@ -44,7 +44,7 @@ public class ReceptiResource {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Recept Id is required!");
         }
 
-        Recept recept = receptiService.getReceptById(receptId);
+        ReceptItem recept = receptiService.getReceptById(receptId);
 
         if(recept == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -80,6 +80,7 @@ public class ReceptiResource {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Recept Id is required!");
         }
 
+        // Izbrisemo recept
         Boolean uspesno = receptiService.deleteRecept(receptId);
         if (uspesno) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Recept with id: " + receptId + "deleted!");

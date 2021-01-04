@@ -1,4 +1,4 @@
-package si.fri.rso.recepti.models;
+package si.fri.rso.recepti.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import si.fri.rso.recepti.models.enums.Tip;

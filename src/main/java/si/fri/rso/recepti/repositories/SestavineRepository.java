@@ -1,8 +1,8 @@
 package si.fri.rso.recepti.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import si.fri.rso.recepti.models.Recept;
-import si.fri.rso.recepti.models.Sestavina;
+import si.fri.rso.recepti.models.entities.Recept;
+import si.fri.rso.recepti.models.entities.Sestavina;
 
 import java.util.List;
 
