@@ -103,6 +103,18 @@
 			<version>5.3.4</version>
 		</dependency>
 
+		<!-- Hystrix for Fault Tolerance -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+		</dependency>
+
+		<!-- Hystrix dashboard -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
+		</dependency>
+
 		<!-- Spring boot Tests -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

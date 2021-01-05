@@ -1,10 +1,7 @@
 package si.fri.rso.recepti.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
 import si.fri.rso.recepti.models.entities.Recept;
 import si.fri.rso.recepti.models.entities.Sestavina;
 import si.fri.rso.recepti.models.view.Komentar;
@@ -28,7 +25,7 @@ public class ReceptiService {
     private SestavineRepository sestavineRepository;
 
     @Autowired
-    private RestTemplate restTemplate;
+    private MSCallsService msCallsService;
 
     /**
      * Get all Recepti
@@ -43,22 +40,10 @@ public class ReceptiService {
         return receptList.stream().map(recept -> {
 
             // Za vsak recept poiscemo sliko
-            Slika slika;
-            try {
-                slika = restTemplate.getForObject("http://slike-service/v1/slike/recept/" + recept.getReceptId(),
-                        Slika.class);
-            } catch (final HttpClientErrorException e) {
-                slika = null;
-            }
+            Slika slika = msCallsService.findSlikaByReceptId(recept.getReceptId());
 
-            Komentar[] komentars;
-            try {
-                ResponseEntity<Komentar[]> response = restTemplate.getForEntity("http://komentarji-service/v1/komentarji/recept/" + recept.getReceptId(),
-                        Komentar[].class);
-                komentars = response.getBody();
-            } catch (final HttpClientErrorException e) {
-                komentars = null;
-            }
+            // Za vsak recept poiscemo komentarje
+            Komentar[] komentars = msCallsService.findKomentaryByReceptId(recept.getReceptId());
 
             return new ReceptItem(recept, slika, komentars);
         }).collect(Collectors.toList());
@@ -82,24 +67,10 @@ public class ReceptiService {
             result.setRecept(recept);
 
             // Za recept poiscemo Sliko (v slike service)
-            Slika slika;
-            try {
-                slika = restTemplate.getForObject("http://slike-service/v1/slike/recept/" + recept.getReceptId(), Slika.class);
-            } catch (final HttpClientErrorException e) {
-                slika = null;
-            }
-            result.setSlika(slika);
+            result.setSlika(msCallsService.findSlikaByReceptId(recept.getReceptId()));
 
-            // Za recept poiscemo Komentarje
-            Komentar[] komentars;
-            try {
-                ResponseEntity<Komentar[]> response = restTemplate.getForEntity("http://komentarji-service/v1/komentarji/recept/" + recept.getReceptId(),
-                        Komentar[].class);
-                komentars = response.getBody();
-            } catch (final HttpClientErrorException e) {
-                komentars = null;
-            }
-            result.setKomentar(komentars);
+            // Za recept poiscemo Komentarje (v komentarji service)
+            result.setKomentar(msCallsService.findKomentaryByReceptId(recept.getReceptId()));
 
             return result;
         } else {
@@ -134,22 +105,10 @@ public class ReceptiService {
             Recept toDelete = receptOptional.get();
 
             // Izbrisemo sliko
-            Boolean uspesnoSlike;
-            try {
-                restTemplate.delete("http://slike-service/v1/slike/delete/recept/" + toDelete.getReceptId());
-                uspesnoSlike = true;
-            } catch (final HttpClientErrorException e) {
-                uspesnoSlike = false;
-            }
+            Boolean uspesnoSlike = msCallsService.deleteSlikeByReceptId(toDelete.getReceptId());
 
             // Izbrisemo komentarje
-            Boolean uspesnoKomentarji;
-            try {
-                restTemplate.delete("http://komentarji-service/v1/komentarji/delete/recept/" + toDelete.getReceptId());
-                uspesnoKomentarji = true;
-            } catch (final HttpClientErrorException e) {
-                uspesnoKomentarji = false;
-            }
+            Boolean uspesnoKomentarji = msCallsService.deleteKomentarjiByReceptId(toDelete.getReceptId());
 
             if(!uspesnoKomentarji || !uspesnoSlike) {
                 return false;
