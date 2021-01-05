@@ -128,10 +128,38 @@ public class ReceptiService {
      * @param receptId Id of Recept
      */
     public Boolean deleteRecept(Integer receptId) {
-        // TODO Izbrisemo sliko
-        // TODO Izbrisemo komentarje
-        receptiRepository.deleteById(receptId);
-        return true;
+        Optional<Recept> receptOptional = receptiRepository.findById(receptId);
+
+        if(receptOptional.isPresent()) {
+            Recept toDelete = receptOptional.get();
+
+            // Izbrisemo sliko
+            Boolean uspesnoSlike;
+            try {
+                restTemplate.delete("http://slike-service/v1/slike/delete/recept/" + toDelete.getReceptId());
+                uspesnoSlike = true;
+            } catch (final HttpClientErrorException e) {
+                uspesnoSlike = false;
+            }
+
+            // Izbrisemo komentarje
+            Boolean uspesnoKomentarji;
+            try {
+                restTemplate.delete("http://komentarji-service/v1/komentarji/delete/recept/" + toDelete.getReceptId());
+                uspesnoKomentarji = true;
+            } catch (final HttpClientErrorException e) {
+                uspesnoKomentarji = false;
+            }
+
+            if(!uspesnoKomentarji || !uspesnoSlike) {
+                return false;
+            }
+
+            receptiRepository.delete(toDelete);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
