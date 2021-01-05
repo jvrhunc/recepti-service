@@ -86,7 +86,7 @@ public class ReceptiResource {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Recept with id: " + receptId + "deleted!");
         }
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error in deleting Recept by Id: " + receptId);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error while deleting Recept with Id: " + receptId);
     }
 
     @Timed(
