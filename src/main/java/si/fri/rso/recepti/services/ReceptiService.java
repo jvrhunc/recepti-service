@@ -1,11 +1,13 @@
 package si.fri.rso.recepti.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import si.fri.rso.recepti.models.entities.Recept;
 import si.fri.rso.recepti.models.entities.Sestavina;
+import si.fri.rso.recepti.models.view.Komentar;
 import si.fri.rso.recepti.models.view.ReceptItem;
 import si.fri.rso.recepti.models.view.Slika;
 import si.fri.rso.recepti.repositories.ReceptiRepository;
@@ -49,9 +51,16 @@ public class ReceptiService {
                 slika = null;
             }
 
-            // TODO Za vsak recept poiscemo komentarje
+            Komentar[] komentars;
+            try {
+                ResponseEntity<Komentar[]> response = restTemplate.getForEntity("http://komentarji-service/v1/komentarji/recept/" + recept.getReceptId(),
+                        Komentar[].class);
+                komentars = response.getBody();
+            } catch (final HttpClientErrorException e) {
+                komentars = null;
+            }
 
-            return new ReceptItem(recept, slika, null);
+            return new ReceptItem(recept, slika, komentars);
         }).collect(Collectors.toList());
     }
 
@@ -81,7 +90,16 @@ public class ReceptiService {
             }
             result.setSlika(slika);
 
-            // TODO Za recept poiscemo Komentarje (v komentarji service)
+            // Za recept poiscemo Komentarje
+            Komentar[] komentars;
+            try {
+                ResponseEntity<Komentar[]> response = restTemplate.getForEntity("http://komentarji-service/v1/komentarji/recept/" + recept.getReceptId(),
+                        Komentar[].class);
+                komentars = response.getBody();
+            } catch (final HttpClientErrorException e) {
+                komentars = null;
+            }
+            result.setKomentar(komentars);
 
             return result;
         } else {

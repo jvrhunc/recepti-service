@@ -10,15 +10,16 @@ public class ReceptItem {
 
     private Slika slika;
 
-    private List<Komentar> komentar;
+    private Komentar[] komentar;
 
-    public ReceptItem() {
-    }
-
-    public ReceptItem(Recept recept, Slika slika, List<Komentar> komentar) {
+    public ReceptItem(Recept recept, Slika slika, Komentar[] komentar) {
         this.recept = recept;
         this.slika = slika;
         this.komentar = komentar;
+    }
+
+    public ReceptItem() {
+
     }
 
     public Recept getRecept() {
@@ -37,11 +38,11 @@ public class ReceptItem {
         this.slika = slika;
     }
 
-    public List<Komentar> getKomentar() {
+    public Komentar[] getKomentar() {
         return komentar;
     }
 
-    public void setKomentar(List<Komentar> komentar) {
+    public void setKomentar(Komentar[] komentar) {
         this.komentar = komentar;
     }
 }
