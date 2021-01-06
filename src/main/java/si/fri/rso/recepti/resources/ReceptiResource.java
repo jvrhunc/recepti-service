@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/recepti")
 @RefreshScope
+@CrossOrigin("*")
 public class ReceptiResource {
 
     @Autowired
