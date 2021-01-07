@@ -62,13 +62,18 @@ public class ReceptiResource {
             percentiles = {0.95, 0.99},
             extraTags = {"version", "v1"}
     )
-    @PostMapping("/add")
-    public ResponseEntity<Object> addRecept(@RequestBody Recept recept) {
+    @PostMapping("/add/{uporabnikId}")
+    public ResponseEntity<Object> addRecept(@RequestBody Recept recept,
+                                            @PathVariable("uporabnikId") Integer uporabnikId) {
+        if(uporabnikId == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Uporabnik id is required!");
+        }
+
         if (recept == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Recept is required!");
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(receptiService.addRecept(recept));
+        return ResponseEntity.status(HttpStatus.OK).body(receptiService.addRecept(recept, uporabnikId));
     }
 
     @Timed(

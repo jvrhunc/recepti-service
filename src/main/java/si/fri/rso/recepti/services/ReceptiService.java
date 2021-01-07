@@ -85,12 +85,13 @@ public class ReceptiService {
      * @param recept Recept to save
      * @return Saved recept
      */
-    public Recept addRecept(Recept recept) {
+    public Recept addRecept(Recept recept, Integer uporabnikId) {
         for (Sestavina sestavina : recept.getSestavine()) {
             sestavina.setCreated(LocalDate.now());
             sestavina.setRecept(recept);
         }
         recept.setCreated(LocalDate.now());
+        recept.setUporabnikId(uporabnikId);
         return receptiRepository.save(recept);
     }
 
