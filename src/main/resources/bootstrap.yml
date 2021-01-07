@@ -2,7 +2,7 @@ spring:
   cloud:
     consul:
       host: 35.187.106.184
-        port: 80
+      port: 80
       config:
         fail-fast: false
       discovery:
