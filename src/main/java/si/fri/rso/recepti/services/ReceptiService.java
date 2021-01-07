@@ -2,6 +2,7 @@ package si.fri.rso.recepti.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import si.fri.rso.recepti.models.entities.Recept;
 import si.fri.rso.recepti.models.entities.Sestavina;
 import si.fri.rso.recepti.models.view.Komentar;
@@ -109,10 +110,6 @@ public class ReceptiService {
 
             // Izbrisemo komentarje
             Boolean uspesnoKomentarji = msCallsService.deleteKomentarjiByReceptId(toDelete.getReceptId());
-
-            if(!uspesnoKomentarji || !uspesnoSlike) {
-                return false;
-            }
 
             receptiRepository.delete(toDelete);
             return true;

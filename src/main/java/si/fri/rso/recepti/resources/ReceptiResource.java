@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import si.fri.rso.recepti.models.entities.Recept;
 import si.fri.rso.recepti.models.entities.Sestavina;
 import si.fri.rso.recepti.models.view.ReceptItem;
+import si.fri.rso.recepti.models.view.Uporabnik;
 import si.fri.rso.recepti.services.ReceptiService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -190,5 +192,36 @@ public class ReceptiResource {
         Sestavina updateSestavina = receptiService.updateSestavina(sestavina, sestavinaId);
 
         return ResponseEntity.status(HttpStatus.OK).body(updateSestavina);
+    }
+
+    @GetMapping("/uporabniki")
+    public List<Uporabnik> getUsers() {
+        ArrayList<Uporabnik> uporabniks = new ArrayList<>();
+        uporabniks.add(new Uporabnik(1, "Požrešni", "Medved", "pozresnimedo",
+                "https://www.animatedimages.org/data/media/1366/animated-brother-bear-image-0007.gif"));
+        uporabniks.add(new Uporabnik(2, "Prebrisana", "Veverica", "sladkavevika",
+                "https://webstockreview.net/images/clipart-houses-squirrel-12.png"));
+        uporabniks.add(new Uporabnik(3, "Veseli", "Kuža", "happydoggo",
+                "https://i.pinimg.com/originals/e9/0e/b6/e90eb68c08253983803788f3d8caf6b9.png"));
+        return uporabniks;
+    }
+
+    /**
+     * Mock implementacija uporabnikov
+     * @param id
+     * @return
+     */
+    @GetMapping("/uporabniki/{id}")
+    public Uporabnik getUserById(@PathVariable("id") Integer id) {
+        if (id == 1) {
+            return new Uporabnik(1,"Požrešni","Medved","pozresnimedo",
+                    "https://www.animatedimages.org/data/media/1366/animated-brother-bear-image-0007.gif");
+        } else if (id == 2) {
+            return new Uporabnik(2,"Prebrisana","Veverica","sladkavevika",
+                    "https://webstockreview.net/images/clipart-houses-squirrel-12.png");
+        } else {
+            return new Uporabnik(3,"Veseli","Kuža","happydoggo",
+                    "https://i.pinimg.com/originals/e9/0e/b6/e90eb68c08253983803788f3d8caf6b9.png");
+        }
     }
 }
